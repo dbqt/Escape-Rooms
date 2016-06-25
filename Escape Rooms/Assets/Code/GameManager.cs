@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 
     static public GameManager instance = null;
 
-    public int NumberOfRooms;
+    public int NumberOfRooms, CurrentRoom;
     public GameObject playerPrefab;
     public string[] Rooms;
 
@@ -27,12 +27,6 @@ public class GameManager : MonoBehaviour {
             instance = this;
         }
         DontDestroyOnLoad(this.gameObject);
-       
-        isPaused = true;
-        PlayerPrefs.SetInt("nSuccess", 0);
-        PlayerPrefs.SetInt("nFail", 0);
-        Time.timeScale = 0f;
-        timer = 0f;
 	}
 	
 	// Update is called once per frame
@@ -58,6 +52,11 @@ public class GameManager : MonoBehaviour {
     public void StartNewGame()
     {
         LoadNextLevel();
+        isPaused = true;
+        PlayerPrefs.DeleteAll();
+        Time.timeScale = 0f;
+        timer = 0f;
+        CurrentRoom = 1;
     }
 
     public void TogglePause()
@@ -96,10 +95,11 @@ public class GameManager : MonoBehaviour {
         {
             int successes = PlayerPrefs.GetInt("nSuccess");
             PlayerPrefs.SetInt("nSuccess", successes+1);
-            NumberOfRooms--;
-            if(NumberOfRooms == 0)
+            CurrentRoom++;
+            if(NumberOfRooms == CurrentRoom)
             {
-                LoadMenu();
+                // Ending screen
+                LoadStats();
             }
             else
             {
@@ -115,12 +115,14 @@ public class GameManager : MonoBehaviour {
 
     public void RedoLevel()
     {
-        int fails = PlayerPrefs.GetInt("nFail");
-        PlayerPrefs.SetInt("nFail", fails+1);
+        int totalFails = PlayerPrefs.GetInt("nFail");
+        int currentRoomFails = PlayerPrefs.GetInt("nFailRoom" + CurrentRoom);
+        PlayerPrefs.SetInt("nFail", totalFails+1);
+        PlayerPrefs.SetInt("nFailRoom" + CurrentRoom, currentRoomFails+1);
         GameObject.Find("Room").GetComponent<roomMaker>().reset();
     }
 
-    private void LoadMenu()
+    public void LoadMenu()
     {
         Pause();
         SceneManager.LoadScene("StartMenu");
@@ -136,5 +138,8 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(Rooms[nextRoom]);
     }
 
-
+    private void LoadStats(){
+        Pause();
+        SceneManager.LoadScene("EndingScreen");
+    }
 }
