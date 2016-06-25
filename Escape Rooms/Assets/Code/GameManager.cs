@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 
     static public GameManager instance = null;
 
-    public GameObject player;
+    public GameObject playerPrefab;
     public string[] Rooms;
 
     private bool isPaused;
@@ -54,6 +54,11 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+    public void StartNewGame()
+    {
+        LoadNextLevel();
+    }
+
     public void TogglePause()
     {
         isPaused = !isPaused;
@@ -67,7 +72,12 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void EndLevel(bool isSuccess)
+    public GameObject GetPlayer()
+    {
+        return Instantiate(playerPrefab) as GameObject;
+    }
+
+    public void EndLevel(bool isSuccess)
     {
         if(isSuccess)
         {
@@ -91,11 +101,13 @@ public class GameManager : MonoBehaviour {
 
     private void LoadNextLevel()
     {
-        TogglePause();
+        if(!isPaused) TogglePause();
         
         if(Rooms.Length <= 0) return; //abord!
 
         int nextRoom = Random.Range(0, Rooms.Length);
         SceneManager.LoadScene(Rooms[nextRoom]);
     }
+
+
 }

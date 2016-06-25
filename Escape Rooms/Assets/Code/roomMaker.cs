@@ -7,10 +7,13 @@ public class roomMaker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		player = GameManager.instance.GetPlayer();
+		reset();
 	}
 	
 	public void reset(){
 		player.transform.position = startingPoint.position;
+		GameManager.instance.TogglePause();
+
 	}
 }

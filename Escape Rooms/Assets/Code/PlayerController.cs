@@ -25,14 +25,14 @@ public class PlayerController : MonoBehaviour {
         moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
 
-        Debug.Log("Vertical : " + moveVertical);
-        Debug.Log("Horizontal : " + moveHorizontal);
+        //Debug.Log("Vertical : " + moveVertical);
+        //Debug.Log("Horizontal : " + moveHorizontal);
 
         if (moveVertical != 0.0)
         {
 
             
-            movement.z = moveVertical * (-1);
+            movement.z = moveVertical;
             transform.Translate(movement * (speed * Time.deltaTime));
 
 
