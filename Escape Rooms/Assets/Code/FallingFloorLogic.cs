@@ -27,9 +27,10 @@ public class FallingFloorLogic : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Player")
+        if(col.gameObject.tag == "Player" && !shouldFall)
         {
             shouldFall = true;
+            Debug.Log("collision enter sound");
             this.gameObject.GetComponents<AudioSource>()[0].Play();
         }
     }
@@ -46,7 +47,7 @@ public class FallingFloorLogic : MonoBehaviour {
     {
         this.gameObject.GetComponent<Rigidbody>().useGravity = true;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        this.gameObject.GetComponents<AudioSource>()[1].Play();
+        //this.gameObject.GetComponents<AudioSource>()[1].Play();
        
     }
 }

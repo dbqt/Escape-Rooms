@@ -27,7 +27,17 @@ public class PlayerController : MonoBehaviour {
         {      
             movement.z = moveVertical;
             transform.Translate(-movement * (speed * Time.deltaTime));
+            if(!this.gameObject.GetComponents<AudioSource>()[0].isPlaying)
+            {
+                this.gameObject.GetComponents<AudioSource>()[0].Play();
+            }
         }
+        else
+        {
+            this.gameObject.GetComponents<AudioSource>()[0].Stop();
+        }
+
+
         if (moveHorizontal >= 0.02 ||  moveHorizontal <= -0.02)
         {
             transform.Rotate(new Vector3(0.0f, rotateSpeed * Time.deltaTime * Mathf.Sign(moveHorizontal), 0.0f));      
