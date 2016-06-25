@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour {
         }
         if (moveHorizontal >= 0.02 ||  moveHorizontal <= -0.02)
         {
-            transform.Rotate(new Vector3(0.0f, rotateSpeed * Mathf.Sign(moveHorizontal), 0.0f));      
+            transform.Rotate(new Vector3(0.0f, rotateSpeed * Time.deltaTime * Mathf.Sign(moveHorizontal), 0.0f));      
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger enter with "+other.gameObject.name);
+        //Debug.Log("Trigger enter with "+other.gameObject.name);
         if(other.gameObject.tag == "Exit")
         {
             GameManager.instance.EndLevel(true);
