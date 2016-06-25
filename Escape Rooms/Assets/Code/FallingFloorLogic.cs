@@ -30,6 +30,7 @@ public class FallingFloorLogic : MonoBehaviour {
         if(col.gameObject.tag == "Player")
         {
             shouldFall = true;
+            this.gameObject.GetComponents<AudioSource>()[0].Play();
         }
     }
 
@@ -45,5 +46,7 @@ public class FallingFloorLogic : MonoBehaviour {
     {
         this.gameObject.GetComponent<Rigidbody>().useGravity = true;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        this.gameObject.GetComponents<AudioSource>()[1].Play();
+       
     }
 }

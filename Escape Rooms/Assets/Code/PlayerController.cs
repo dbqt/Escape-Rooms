@@ -5,10 +5,12 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float rotateSpeed;
+    private bool isJumping;
 
     // Use this for initialization
     void Start() 
     {
+        isJumping = false;
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log("Vertical : " + moveVertical);
         //Debug.Log("Horizontal : " + moveHorizontal);
 
-        if (moveVertical != 0.0)
+        if (moveVertical != 0.0)    
         {      
             movement.z = moveVertical;
             transform.Translate(-movement * (speed * Time.deltaTime));
