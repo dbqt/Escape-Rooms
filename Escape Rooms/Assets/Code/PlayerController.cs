@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         if (moveVertical != 0.0)
         {      
             movement.z = moveVertical;
-            transform.Translate(movement * (speed * Time.deltaTime));
+            transform.Translate(-movement * (speed * Time.deltaTime));
         }
         if (moveHorizontal >= 0.02 ||  moveHorizontal <= -0.02)
         {
