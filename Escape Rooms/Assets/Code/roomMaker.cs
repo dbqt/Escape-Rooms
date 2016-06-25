@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class roomMaker : MonoBehaviour {
-	public Transform startingPoint, endingPoint;
+	public Vector3 startingPoint, endingPoint;
 	public GameObject player;
 
 	// Use this for initialization
@@ -11,6 +11,6 @@ public class roomMaker : MonoBehaviour {
 	}
 	
 	public void reset(){
-		player.transform.position = startingPoint.position;
+		player.transform.position = startingPoint;
 	}
 }
