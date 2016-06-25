@@ -108,14 +108,15 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            int fails = PlayerPrefs.GetInt("nFail");
-            PlayerPrefs.SetInt("nFail", fails+1);
+            // premature quit?
             LoadMenu();
         }
     }
 
     public void RedoLevel()
     {
+        int fails = PlayerPrefs.GetInt("nFail");
+        PlayerPrefs.SetInt("nFail", fails+1);
         GameObject.Find("Room").GetComponent<roomMaker>().reset();
     }
 
