@@ -9,10 +9,13 @@ public class GameManager : MonoBehaviour {
     public int NumberOfRooms, CurrentRoom;
     public GameObject playerPrefab;
     public string[] Rooms;
+    public AudioClip[] RandomAudio;
+    public float MinTimeBetweenAudio, MaxTimeBetweenAudio;
 
     private GameObject player;
     private bool isPaused;
-    private float timer;
+    private float timer,TimeBetweenAudio;
+    private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () 
@@ -27,6 +30,9 @@ public class GameManager : MonoBehaviour {
             instance = this;
         }
         DontDestroyOnLoad(this.gameObject);
+        TimeBetweenAudio = Random.Range(MinTimeBetweenAudio, MaxTimeBetweenAudio);
+        audioSource = (gameObject.AddComponent<AudioSource>() as AudioSource);
+        Pause();
 	}
 	
 	// Update is called once per frame
@@ -35,17 +41,15 @@ public class GameManager : MonoBehaviour {
         if(!isPaused)
         {
             timer += Time.deltaTime;
-        }
-	    //check if player is dead
-        // if(!player.GetComponent<>().)
-        {
-        //    EndLevel(false);
-        }
-        
-        //check if player has done level
-        //if((player.GetComponent<>().))
-        {
-        //  EndLevel(true);
+
+            // Generate a sound every random time
+            TimeBetweenAudio -= Time.deltaTime;
+            Debug.Log(TimeBetweenAudio);
+            if(TimeBetweenAudio <= 0){
+                TimeBetweenAudio = Random.Range(MinTimeBetweenAudio, MaxTimeBetweenAudio);
+                audioSource.clip = RandomAudio[Random.Range(0, RandomAudio.Length - 1)];
+                audioSource.Play();
+            }
         }
 	}
 
