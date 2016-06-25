@@ -13,7 +13,7 @@ public class roomMaker : MonoBehaviour {
 	
 	public void reset(){
 		player.transform.position = startingPoint.position;
-		GameManager.instance.TogglePause();
-
+		player.transform.rotation = Quaternion.identity;
+		GameManager.instance.UnPause();
 	}
 }

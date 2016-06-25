@@ -6,9 +6,11 @@ public class GameManager : MonoBehaviour {
 
     static public GameManager instance = null;
 
+    public int NumberOfRooms;
     public GameObject playerPrefab;
     public string[] Rooms;
 
+    private GameObject player;
     private bool isPaused;
     private float timer;
 
@@ -31,7 +33,6 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetInt("nFail", 0);
         Time.timeScale = 0f;
         timer = 0f;
-
 	}
 	
 	// Update is called once per frame
@@ -64,12 +65,24 @@ public class GameManager : MonoBehaviour {
         isPaused = !isPaused;
         if(isPaused)
         {
-            Time.timeScale = 0f;
+            Pause();
         }
         else
         {
-            Time.timeScale = 1f;
+            UnPause();
         }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+    }
+
+    public void UnPause()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
     }
 
     public GameObject GetPlayer()
@@ -83,7 +96,15 @@ public class GameManager : MonoBehaviour {
         {
             int successes = PlayerPrefs.GetInt("nSuccess");
             PlayerPrefs.SetInt("nSuccess", successes+1);
-            LoadNextLevel();
+            NumberOfRooms--;
+            if(NumberOfRooms == 0)
+            {
+                LoadMenu();
+            }
+            else
+            {
+                LoadNextLevel();
+            }
         }
         else
         {
@@ -93,15 +114,20 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void RedoLevel()
+    {
+        GameObject.Find("Room").GetComponent<roomMaker>().reset();
+    }
+
     private void LoadMenu()
     {
-        TogglePause(); 
-        //SceneManager.LoadScene("menu");
+        Pause();
+        SceneManager.LoadScene("StartMenu");
     }
 
     private void LoadNextLevel()
     {
-        if(!isPaused) TogglePause();
+        Pause();
         
         if(Rooms.Length <= 0) return; //abord!
 
