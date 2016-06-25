@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     public GameObject player;
-    public GameObject[] Rooms;
+    public string[] Rooms;
 
     private bool isPaused;
 
@@ -66,6 +66,6 @@ public class GameManager : MonoBehaviour {
         if(Rooms.Length <= 0) return; //abord!
 
         int nextRoom = Random.Range(0, Rooms.Length);
-        SceneManager.LoadScene(Rooms[nextRoom].name);
+        SceneManager.LoadScene(Rooms[nextRoom]);
     }
 }
