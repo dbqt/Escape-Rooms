@@ -10,10 +10,8 @@ public class ScoreInitialization : MonoBehaviour {
 	void Start () {
 		RoomScore.text = "";
 		int nbRooms = GameManager.instance.NumberOfRooms;
-		Debug.Log("Room number: " + nbRooms);
 		for(int i = 1; i <= nbRooms; i++){
 			RoomScore.text += "Room " + i + " Fails : " + PlayerPrefs.GetInt("nFailRoom" + i) + "\n";
-			Debug.Log("Room " + i + " : " + PlayerPrefs.GetInt("nFailRoom" + i));
 		}
 	}
 
