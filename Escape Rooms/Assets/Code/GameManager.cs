@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-    public voiid TogglePause()
+    public void TogglePause()
     {
         isPaused = !isPaused;
         if(isPaused)
@@ -62,9 +63,9 @@ public class GameManager : MonoBehaviour {
 
     private void LoadNextLevel()
     {
-        if(Rooms.Count <= 0) return; //abord!
+        if(Rooms.Length <= 0) return; //abord!
 
-        int nextRoom = Random.Range(0, Rooms.Count);
+        int nextRoom = Random.Range(0, Rooms.Length);
         SceneManager.LoadScene(Rooms[nextRoom].name);
     }
 }
