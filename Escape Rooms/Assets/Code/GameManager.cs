@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         Time.timeScale = 0f;
         timer = 0f;
-        CurrentRoom = 1;
+        CurrentRoom = 0;
     }
 
     public void TogglePause()
@@ -138,8 +138,8 @@ public class GameManager : MonoBehaviour {
         
         if(Rooms.Length <= 0) return; //abord!
 
-        int nextRoom = Random.Range(0, Rooms.Length);
-        SceneManager.LoadScene(Rooms[nextRoom]);
+        
+        SceneManager.LoadScene(Rooms[CurrentRoom]);
     }
 
     private void LoadStats(){

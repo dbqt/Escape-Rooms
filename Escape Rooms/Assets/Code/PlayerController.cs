@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour {
         
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
+        float lookUpDown = Input.GetAxis("LookVertical");
         Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
         
 
@@ -47,8 +48,12 @@ public class PlayerController : MonoBehaviour {
           
             
         }
-       
-
+        Debug.Log("X Rotation: " + this.transform.rotation.x);
+        Debug.Log("Z Rotation: " + this.transform.rotation.z);
+        if (lookUpDown != 0 && (this.transform.rotation.x + this.transform.rotation.z) > 90)
+        {
+            transform.Rotate(new Vector3(rotateSpeed * Mathf.Sign(lookUpDown), 0.0f, 0.0f));
+        }
        // Debug.Log("Vertical : " + moveVertical);
        // Debug.Log("Horizontal : " + moveHorizontal);
 
@@ -71,7 +76,7 @@ public class PlayerController : MonoBehaviour {
         if (moveHorizontal >= 0.02 || moveHorizontal <= -0.02)
         {
 
-            transform.Rotate(new Vector3(0.0f, rotateSpeed * Mathf.Sign(moveHorizontal), 0.0f));
+            this.transform.Rotate(new Vector3(0.0f, rotateSpeed * Mathf.Sign(moveHorizontal), 0.0f));
 
 
         }
