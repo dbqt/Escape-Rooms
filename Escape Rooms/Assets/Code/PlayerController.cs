@@ -50,7 +50,8 @@ public class PlayerController : MonoBehaviour {
         }
         Debug.Log("X Rotation: " + this.transform.rotation.x);
         Debug.Log("Z Rotation: " + this.transform.rotation.z);
-        if (lookUpDown != 0 && (this.transform.rotation.x + this.transform.rotation.z) > 90)
+        Debug.Log("Looking: " + lookUpDown);
+        if (lookUpDown != 0 /*&& (this.transform.rotation.x + this.transform.rotation.z) > 90*/)
         {
             transform.Rotate(new Vector3(rotateSpeed * Mathf.Sign(lookUpDown), 0.0f, 0.0f));
         }
