@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour {
         {
             int successes = PlayerPrefs.GetInt("nSuccess");
             PlayerPrefs.SetInt("nSuccess", successes+1);
+            this.gameObject.GetComponents<AudioSource>()[2].Play();
             CurrentRoom++;
             if(NumberOfRooms == CurrentRoom)
             {
