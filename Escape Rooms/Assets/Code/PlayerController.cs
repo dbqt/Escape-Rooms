@@ -31,11 +31,19 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log("Vertical : " + moveVertical);
         //Debug.Log("Horizontal : " + moveHorizontal);
        
-        if(Input.GetKey(KeyCode.Joystick1Button0))
+        if(Input.GetButtonDown("Jump"))
         {
-            if (isJumping == false) Jump();
-            else if ((GetComponent<Rigidbody>().velocity.y - prevJumpVelocity) != 0)
+            if (isJumping == false)
+            {
+                Debug.Log("can jump");
+                 Jump();
+            }
+            else if (GetComponent<Rigidbody>().velocity.y == 0f)
+            {
+                Debug.Log("can jump");
+
                 isJumping = false;
+            }
           
             
         }
