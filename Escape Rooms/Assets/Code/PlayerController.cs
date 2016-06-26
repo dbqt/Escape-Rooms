@@ -39,25 +39,30 @@ public class PlayerController : MonoBehaviour {
           
             
         }
-        if (moveVertical != 0.0)    
-        {      
-            movement.z = moveVertical;
-            transform.Translate(-movement * (speed * Time.deltaTime));
-            if(!this.gameObject.GetComponents<AudioSource>()[0].isPlaying)
-            {
-               // this.gameObject.GetComponents<AudioSource>()[0].Play();
-            }
-        }
-        else
+       
+
+        Debug.Log("Vertical : " + moveVertical);
+        Debug.Log("Horizontal : " + moveHorizontal);
+
+        if (moveVertical != 0.0)
         {
-            //this.gameObject.GetComponents<AudioSource>()[0].Stop();
-        }
 
 
-        if (moveHorizontal >= 0.02 ||  moveHorizontal <= -0.02)
+            movement.z = moveVertical * (-1);
+            transform.Translate(movement * (speed * Time.deltaTime));
+
+       
+
+    }
+        if (moveHorizontal >= 0.02 || moveHorizontal <= -0.02)
         {
-            transform.Rotate(new Vector3(0.0f, rotateSpeed * Time.deltaTime * Mathf.Sign(moveHorizontal), 0.0f));      
+
+            transform.Rotate(new Vector3(0.0f, rotateSpeed * Mathf.Sign(moveHorizontal), 0.0f));
+
+
         }
+
+      
 
     }
     void FixedUpdate()
