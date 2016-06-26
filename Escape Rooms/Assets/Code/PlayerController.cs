@@ -54,14 +54,20 @@ public class PlayerController : MonoBehaviour {
 
         if (moveVertical != 0.0)
         {
-
-
             movement.z = moveVertical * (-1);
             transform.Translate(movement * (speed * Time.deltaTime));
-
+            if(!this.gameObject.GetComponents<AudioSource>()[0].isPlaying)
+            {
+                this.gameObject.GetComponents<AudioSource>()[0].Play();
+            }
+        }
+        else
+        {
+            this.gameObject.GetComponents<AudioSource>()[0].Stop();
+        }
        
 
-    }
+        
         if (moveHorizontal >= 0.02 || moveHorizontal <= -0.02)
         {
 
