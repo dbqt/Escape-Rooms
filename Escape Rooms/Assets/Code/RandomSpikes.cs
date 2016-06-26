@@ -11,7 +11,7 @@ public class RandomSpikes : MonoBehaviour {
 	   for(int i = 0; i < numberSpikes; ++i)
        {
             Vector2 xypos = Random.insideUnitCircle * 3.5f;
-            Vector3 pos = new Vector3(xypos.x, 0f,xypos.y);
+            Vector3 pos = new Vector3(xypos.x, -0.25f,xypos.y);
             Instantiate(SpikePrefab, pos, Quaternion.identity);
        }
 	}
