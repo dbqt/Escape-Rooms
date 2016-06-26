@@ -5,12 +5,15 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float rotateSpeed;
+    public float jumpStrength;
     private bool isJumping;
-
+    private float prevForce;
+    
     // Use this for initialization
     void Start() 
     {
         isJumping = false;
+        
     }
 
     // Update is called once per frame
@@ -22,7 +25,14 @@ public class PlayerController : MonoBehaviour {
 
         //Debug.Log("Vertical : " + moveVertical);
         //Debug.Log("Horizontal : " + moveHorizontal);
+       
+        if(Input.GetKey(KeyCode.Joystick1Button0))
+        {
+            if (isJumping == false) Jump();
 
+          
+            
+        }
         if (moveVertical != 0.0)    
         {      
             movement.z = moveVertical;
@@ -32,6 +42,11 @@ public class PlayerController : MonoBehaviour {
         {
             transform.Rotate(new Vector3(0.0f, rotateSpeed * Time.deltaTime * Mathf.Sign(moveHorizontal), 0.0f));      
         }
+
+    }
+    void FixedUpdate()
+    {
+        float changeForce = 
     }
 
     void OnTriggerEnter(Collider other)
@@ -46,4 +61,14 @@ public class PlayerController : MonoBehaviour {
             GameManager.instance.RedoLevel();
         }
     }
+    
+    void Jump()
+    {
+        isJumping = true;
+        prevForce = new Vector3(0.0f, jumpStrength, 0.0f);
+        
+        GetComponent<Rigidbody>().AddForce(prevForce);
+
+    }
+
 }
