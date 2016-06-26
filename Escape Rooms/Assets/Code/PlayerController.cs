@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetKey(KeyCode.Joystick1Button0))
         {
             if (isJumping == false) Jump();
-
+          //  else if
           
             
         }
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     }
     void FixedUpdate()
     {
-        float changeForce = 
+       // float changeForce = 
     }
 
     void OnTriggerEnter(Collider other)
@@ -75,9 +75,9 @@ public class PlayerController : MonoBehaviour {
     void Jump()
     {
         isJumping = true;
-        prevForce = new Vector3(0.0f, jumpStrength, 0.0f);
+        //prevForce = new Vector3(0.0f, jumpStrength, 0.0f);
         
-        GetComponent<Rigidbody>().AddForce(prevForce);
+        //GetComponent<Rigidbody>().AddForce(prevForce);
 
     }
 
