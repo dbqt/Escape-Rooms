@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour {
     public void LoadMenu()
     {
         Pause();
+        this.CurrentRoom = 0;
         SceneManager.LoadScene("StartMenu");
     }
 
