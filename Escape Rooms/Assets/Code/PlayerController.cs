@@ -7,21 +7,26 @@ public class PlayerController : MonoBehaviour {
     public float rotateSpeed;
     public float jumpStrength;
     private bool isJumping;
-    private float prevForce;
+    private float prevJumpVelocity;
+    private Vector3 jumpForce;
+    
     
     // Use this for initialization
     void Start() 
     {
         isJumping = false;
-        
+       // prev
+       // jumpForce = 
     }
 
     // Update is called once per frame
     void Update()
-     { 
+     {
+        
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
+        
 
         //Debug.Log("Vertical : " + moveVertical);
         //Debug.Log("Horizontal : " + moveHorizontal);
@@ -29,7 +34,7 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetKey(KeyCode.Joystick1Button0))
         {
             if (isJumping == false) Jump();
-          //  else if
+          //else if((GetComponent<Rigidbody>().velocity.y-prevForce) == 0)
           
             
         }
@@ -39,12 +44,12 @@ public class PlayerController : MonoBehaviour {
             transform.Translate(-movement * (speed * Time.deltaTime));
             if(!this.gameObject.GetComponents<AudioSource>()[0].isPlaying)
             {
-                this.gameObject.GetComponents<AudioSource>()[0].Play();
+               // this.gameObject.GetComponents<AudioSource>()[0].Play();
             }
         }
         else
         {
-            this.gameObject.GetComponents<AudioSource>()[0].Stop();
+            //this.gameObject.GetComponents<AudioSource>()[0].Stop();
         }
 
 
@@ -75,9 +80,10 @@ public class PlayerController : MonoBehaviour {
     void Jump()
     {
         isJumping = true;
-        //prevForce = new Vector3(0.0f, jumpStrength, 0.0f);
         
-        //GetComponent<Rigidbody>().AddForce(prevForce);
+        
+       // GetComponent<Rigidbody>().AddForce(jumpVelocity);
+       // prevForce = GetComponent<Rigidbody>().velocity.y;
 
     }
 
