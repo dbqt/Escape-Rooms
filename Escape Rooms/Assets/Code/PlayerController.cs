@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour {
         }
         if(other.gameObject.tag == "Trap")
         {
+            this.gameObject.GetComponents<AudioSource>()[1].Play();
             GameManager.instance.RedoLevel();
         }
     }
