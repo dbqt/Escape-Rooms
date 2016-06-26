@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour {
     void Start() 
     {
         isJumping = false;
-       // prev
-       // jumpForce = 
+        prevJumpVelocity = 0;
+        jumpForce = new Vector3(0, jumpStrength, 0);
     }
 
     // Update is called once per frame
@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetKey(KeyCode.Joystick1Button0))
         {
             if (isJumping == false) Jump();
-          //else if((GetComponent<Rigidbody>().velocity.y-prevForce) == 0)
+            else if ((GetComponent<Rigidbody>().velocity.y - prevJumpVelocity) != 0)
+                isJumping = false;
           
             
         }
@@ -82,8 +83,8 @@ public class PlayerController : MonoBehaviour {
         isJumping = true;
         
         
-       // GetComponent<Rigidbody>().AddForce(jumpVelocity);
-       // prevForce = GetComponent<Rigidbody>().velocity.y;
+        GetComponent<Rigidbody>().AddForce(jumpForce);
+        prevJumpVelocity = GetComponent<Rigidbody>().velocity.y;
 
     }
 
