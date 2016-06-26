@@ -12,18 +12,22 @@ public class FallingFloorLogic : MonoBehaviour {
 	void Start () {
     	ResetFloor();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	   if(shouldFall)
-       {
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (shouldFall)
+        {
             timer += Time.deltaTime;
-            if(timer > FallDelay)
+
+            if (timer > FallDelay)
             {
-                Fall();
+                
+                    FallPlatform();
+                
             }
-       }
-	}
+        }
+    }
 
     void OnCollisionEnter(Collision col)
     {
@@ -39,15 +43,25 @@ public class FallingFloorLogic : MonoBehaviour {
     {
         timer = 0;
         shouldFall = false;
-        this.gameObject.GetComponent<Rigidbody>().useGravity = false;
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+     
+            this.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        
     }
 
-    private void Fall()
+    private void FallPlatform()
     {
-        this.gameObject.GetComponent<Rigidbody>().useGravity = true;
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        //this.gameObject.GetComponents<AudioSource>()[1].Play();
+
+        
+            this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            //this.gameObject.GetComponents<AudioSource>()[1].Play();
+        
        
     }
+
+
+
+
 }

@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
 
             // Generate a sound every random time
             TimeBetweenAudio -= Time.deltaTime;
-            Debug.Log(TimeBetweenAudio);
+           // Debug.Log(TimeBetweenAudio);
             if(TimeBetweenAudio <= 0){
                 TimeBetweenAudio = Random.Range(MinTimeBetweenAudio, MaxTimeBetweenAudio);
                 audioSource.clip = RandomAudio[Random.Range(0, RandomAudio.Length - 1)];

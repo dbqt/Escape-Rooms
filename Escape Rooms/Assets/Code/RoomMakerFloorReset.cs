@@ -11,7 +11,10 @@ public class RoomMakerFloorReset : roomMaker {
         foreach(GameObject floor in FallingFloors)
         {
             floor.GetComponent<FallingFloorLogic>().ResetFloor();
-            floor.transform.position = new Vector3(floor.transform.position.x, 0f, floor.transform.position.z);
+            if (!floor.CompareTag("Ledge"))
+                floor.transform.position = new Vector3(floor.transform.position.x, 0.0f, floor.transform.position.z);
+            else
+                floor.transform.position = new Vector3(floor.transform.position.x, 1.0f, floor.transform.position.z);
         }
         base.reset();
     }

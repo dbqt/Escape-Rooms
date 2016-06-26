@@ -31,11 +31,11 @@ public class PlayerController : MonoBehaviour {
         //Debug.Log("Vertical : " + moveVertical);
         //Debug.Log("Horizontal : " + moveHorizontal);
        
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") || isJumping)
         {
             if (isJumping == false)
             {
-                Debug.Log("can jump");
+                Debug.Log("jumping");
                  Jump();
             }
             else if (GetComponent<Rigidbody>().velocity.y == 0f)
@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour {
         }
        
 
-        Debug.Log("Vertical : " + moveVertical);
-        Debug.Log("Horizontal : " + moveHorizontal);
+       // Debug.Log("Vertical : " + moveVertical);
+       // Debug.Log("Horizontal : " + moveHorizontal);
 
         if (moveVertical != 0.0)
         {
