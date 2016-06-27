@@ -11,11 +11,14 @@ public class GameManager : MonoBehaviour {
     public string[] Rooms;
     public AudioClip[] RandomAudio;
     public float MinTimeBetweenAudio, MaxTimeBetweenAudio;
+    public GameObject demonPrefab;
 
+    private GameObject demon;
     private GameObject player;
     private bool isPaused;
     private float timer,TimeBetweenAudio;
     private AudioSource audioSource;
+    private bool demonAppear;
 
 	// Use this for initialization
 	void Start () 
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour {
         TimeBetweenAudio = Random.Range(MinTimeBetweenAudio, MaxTimeBetweenAudio);
         audioSource = (gameObject.AddComponent<AudioSource>() as AudioSource);
         Pause();
+        demonAppear = false;
 	}
 	
 	// Update is called once per frame
@@ -48,7 +52,19 @@ public class GameManager : MonoBehaviour {
             if(TimeBetweenAudio <= 0){
                 TimeBetweenAudio = Random.Range(MinTimeBetweenAudio, MaxTimeBetweenAudio);
                 audioSource.clip = RandomAudio[Random.Range(0, RandomAudio.Length - 1)];
+                
                 audioSource.Play();
+
+                if(!demonAppear && audioSource.clip.name == "I_will_kill_you-Grandpa-13673816")
+                {
+                    demon = GetDemon();
+                    demon.transform.position = GameObject.Find("Exit").transform.position + new Vector3(0.0f, -1.0f, -2.0f);
+                    demon.SetActive(true);
+                    Destroy(demon,0.5f);
+                }
+
+                if (demon == null) demonAppear = true;
+                
             }
         }
 	}
@@ -86,6 +102,11 @@ public class GameManager : MonoBehaviour {
     {
         isPaused = false;
         Time.timeScale = 1f;
+    }
+
+    public GameObject GetDemon()
+    {
+        return Instantiate(demonPrefab) as GameObject;
     }
 
     public GameObject GetPlayer()
