@@ -7,10 +7,13 @@ public class roomMaker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		player = GameManager.instance.GetPlayer();
+		reset();
 	}
 	
-	public void reset(){
+	public virtual void reset(){
 		player.transform.position = startingPoint.position;
+		player.transform.rotation = Quaternion.identity;
+		GameManager.instance.UnPause();
 	}
 }

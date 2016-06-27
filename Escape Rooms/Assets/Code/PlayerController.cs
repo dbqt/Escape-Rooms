@@ -5,47 +5,107 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float rotateSpeed;
-    private Rigidbody rb;
-    private float moveHorizontal;
-    private float moveVertical;
-
+    public float jumpStrength;
+    private bool isJumping;
+    private float prevJumpVelocity;
+    private Vector3 jumpForce;
+    
+    
     // Use this for initialization
-    void Start() {
-
-        moveHorizontal = 0;
-        moveVertical = 0;
-
+    void Start() 
+    {
+        isJumping = false;
+        prevJumpVelocity = 0;
+        jumpForce = new Vector3(0, jumpStrength, 0);
     }
 
     // Update is called once per frame
-    void Update() {
-
+    void Update()
+     {
         
-        moveHorizontal = Input.GetAxis("Horizontal");
-        moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        
         Vector3 movement = new Vector3(0.0f, 0.0f, 0.0f);
+        
 
-        Debug.Log("Vertical : " + moveVertical);
-        Debug.Log("Horizontal : " + moveHorizontal);
+        //Debug.Log("Vertical : " + moveVertical);
+        //Debug.Log("Horizontal : " + moveHorizontal);
+       
+        if(Input.GetButtonDown("Jump") || isJumping)
+        {
+            if (isJumping == false)
+            {
+                Debug.Log("jumping");
+                 Jump();
+            }
+            else if (GetComponent<Rigidbody>().velocity.y == 0f)
+            {
+                Debug.Log("can jump");
+
+                isJumping = false;
+            }
+          
+            
+        }
+       
+       // Debug.Log("Vertical : " + moveVertical);
+       // Debug.Log("Horizontal : " + moveHorizontal);
 
         if (moveVertical != 0.0)
         {
-
-            
             movement.z = moveVertical * (-1);
             transform.Translate(movement * (speed * Time.deltaTime));
-
-
+            if(!this.gameObject.GetComponents<AudioSource>()[0].isPlaying)
+            {
+                this.gameObject.GetComponents<AudioSource>()[0].Play();
+            }
         }
-        if (moveHorizontal >= 0.02 ||  moveHorizontal <= -0.02)
+        else
         {
-          
-            transform.Rotate(new Vector3(0.0f, rotateSpeed * Mathf.Sign(moveHorizontal), 0.0f));
-            
-          
+            this.gameObject.GetComponents<AudioSource>()[0].Stop();
         }
+       
+
+        
+        if (moveHorizontal >= 0.02 || moveHorizontal <= -0.02)
+        {
+
+            this.transform.Rotate(new Vector3(0.0f, rotateSpeed * Mathf.Sign(moveHorizontal), 0.0f));
+
+
+        }
+
       
 
+    }
+    void FixedUpdate()
+    {
+       // float changeForce = 
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("Trigger enter with "+other.gameObject.name);
+        if(other.gameObject.tag == "Exit")
+        {
+            GameManager.instance.EndLevel(true);
+        }
+        if(other.gameObject.tag == "Trap")
+        {
+            this.gameObject.GetComponents<AudioSource>()[1].Play();
+            GameManager.instance.RedoLevel();
+        }
+    }
+    
+    void Jump()
+    {
+        isJumping = true;
+        
+        
+        GetComponent<Rigidbody>().AddForce(jumpForce);
+        prevJumpVelocity = GetComponent<Rigidbody>().velocity.y;
 
     }
+
 }
